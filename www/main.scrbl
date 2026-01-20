@@ -17,9 +17,18 @@ Programming Languages}
 
 @emph{@string-titlecase[semester], @year}
 
-@emph{Lecture}: @lecture-schedule1, @classroom1
 
 @emph{Professor}: @prof1
+
+@emph{Lecture}: @lecture-schedule1, @classroom1
+
+Office Hours: @itemize{ @(for/list ([oh prof1-ohs]) (item (car oh) ", " (cadr oh))) }
+
+@emph{Professor}: @prof2
+
+@emph{Lecture}: @lecture-schedule2, @classroom2
+
+Office Hours: @itemize{ @(for/list ([oh prof2-ohs]) (item (car oh) ", " (cadr oh))) }
 
 
 CMSC 430 is an introduction to compilers.  Its major goal is to arm
@@ -53,15 +62,37 @@ staff using this @link[feedback]{form}.
 
 @bold{TA office hours:} @office-hour-location (unless otherwise noted)
 
-@office-hours
+@tabular[#:style 'boxed
+         #:row-properties '(bottom-border ())
+         (list (list @bold{Time}  @bold{Monday} @bold{Tuesday} @bold{Wednesday} @bold{Thursday}   @bold{Friday})
+               (list  "9:00 AM"   'cont         ""       ""          ""          'cont)
+               (list  "9:30 AM"   'cont         ""       ""          ""          'cont)
+               (list "10:00 AM"   ""       		""       ""          'cont             "")
+               (list "10:30 AM"   ""            ""       ""          'cont             "")
+               (list "11:00 AM"   ""            ""        ""          ""           "")
+               (list "11:30 AM"   ""            ""        ""          ""           "")
+               (list "12:00 PM"   ""            'cont          ""   'cont             'cont)
+               (list "12:30 PM"   ""            ""             ""   ""          'cont)
+               (list  "1:00 PM"   'cont         ""             ""         ""  'cont)
+               (list  "1:30 PM"   'cont         'cont          ""         ""          'cont)
+               (list  "2:00 PM"   ""      ""      ""    "" "")
+               (list  "2:30 PM"   ""      ""      ""    "" "")
+               (list  "3:00 PM"   'cont         'cont          'cont            ""          "")
+               (list  "3:30 PM"   ""        'cont          ""           ""          "")
+               (list  "4:00 PM"   ""        'cont          ""           'cont             "")
+               (list  "4:30 PM"   ""        'cont          ""           'cont             "")
+               (list  "5:00 PM"   ""        'cont          ""           'cont             'cont)
+               (list  "5:30 PM"   ""        'cont          ""            'cont             'cont))]
+
 
 @include-section{syllabus.scrbl}
 @include-section{texts.scrbl}
 @include-section{schedule.scrbl}
-@;include-section{notes.scrbl}
-@include-section{slides.scrbl}
+@include-section{notes.scrbl}
+@;include-section{slides.scrbl}
 @include-section{assignments.scrbl}
 @include-section{midterms.scrbl}
-@;include-section{project.scrbl}
+@include-section{project.scrbl}
 @include-section{software.scrbl}
+@include-section{faq.scrbl}
 @include-section{colophon.scrbl}

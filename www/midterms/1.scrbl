@@ -40,7 +40,7 @@ Answers to common clarifying questions will be posted to
 Piazza.
 
 If you have trouble reaching the course staff via Piazza, email
-@tt{@prof1-email}.
+@tt{@prof1-email} or @tt{@prof2-email}.
 
 You may not communicate with anyone outside of the course staff about
 the midterm.

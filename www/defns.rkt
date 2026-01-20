@@ -5,7 +5,7 @@
 (define prof1 (link "https://www.cs.umd.edu/~anwar/" "Anwar Mamat"))
 (define prof1-pronouns "he/him")
 (define prof1-email "anwar@umd.edu")
-(define prof1-ohs (list (list "TBD" (link "" "Zoom"))
+(define prof1-ohs (list (list "TBD" (link "www.zoom.umd" "Zoom"))
                         (list "TBD" "IRB 2248")))
 (define prof1-initials "AM")
 
@@ -42,9 +42,10 @@
 (define staff
   (list (list "Pierce Darragh"     "pdarragh@umd.edu")
         (list "Kalyan Bhetwal"     "kbhetwal@umd.edu")
+        (list "..."     "...")
         ))
 
-(define lecture-schedule1 "TTh, 2:00-3:15pm")
+(define lecture-schedule1 "TTh, 9:30-10:45am")
 (define lecture-schedule2 "TTh, 3:30-4:45pm")
 
 (define classroom1 "CSI 1115")
@@ -64,26 +65,4 @@
               "")
             (sub1 i)))
 
-(define office-hours
-  (itemlist
-   #:style 'compact
-   (item "Monday"
-         (itemlist
-          (item "9:00am–12:00pm — Zhonqi")
-          (item "12:00pm–3:00pm — Ben")
-          (item "3:00pm–6:00pm — Abhi")))
-   (item "Tuesday"
-         (itemlist
-          (item "11:00am–2:00pm — Abhi")))
-   (item "Wednesday"
-         (itemlist
-          (item "9:00am–12:00pm — Zhonqi")
-          (item "12:00pm–3:00pm — Ben")
-          (item "3:30pm–6:30pm — Kalyan")))
-   (item "Thursday"
-         (itemlist
-          (item "10:00am–1:00pm — Zinat")))
-   (item "Friday"
-         (itemlist
-          (item "11:00am–2:00pm — Zinat")
-          (item "4:00pm–7:00pm — Kalyan")))))
+ 
