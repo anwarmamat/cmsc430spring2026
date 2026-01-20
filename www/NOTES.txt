@@ -1,0 +1,133 @@
+DVH rewrite Fall 2020
+
+Goals:
+
+- Make self-hosting by end <-- This likely won't happen this semester
+- Eliminate quasiqote, unquote usage.
+- Eliminate s-expr-based data types.
+- Eliminate lexing and parsing; use read from start.
+- Add I/O, read-byte, write-byte.  Build from there.
+- Add symbols w/ symbol table.
+- Add GC.
+- Add Bignums. <-- Likely won't happen
+- Rewrite assignments. <-- Leaving up to LL and JC
+- More static checking & better error messages for a86 before generating nasm.
+  Should be impossible to generate code that nasm rejects.
+
+Possible assignment ideas:
+
+- After Extort: catch and signal errors on integer over/under-flow
+- Implement an interpreter for a86 (the mini-x86 language)
+- Implement read-char, peek-char in terms of read-byte, peek-byte
+- Implement read in terms of read-char, peek-char
+- Implement prefab structures
+- Implement bignum arithmetic library
+
+DVH ideas for Fall 2021
+
+- Rewrite a86 chapter to split out "reference" from "introduction"
+- Assignment 1 could be a86 peephole optimizer; given a template, show rewriting examples
+  test against generated code from the end of the course, measure instruction count
+  against a reference implementation.  Accomplishes both getting comfortable with
+  Racket and a86 (and power of code as data) and... can be plugged in to 
+  back-end of compiler later.
+- Add a note explaining #:prefab when it first appears
+- Add a note about "types" in Racket: a useful concept for organizing programs even
+  without an enforcement mechanism (and there's #lang typed/racket)
+
+DVH ideas based on Fall 2021
+
+* Make take-home exam 48 instead of 72 hours, release on Tuesday at
+  lecture time, due on Thursday just before lecture.  No need to miss
+  two classes.
+
+* Need to address increasing problem with non-x86 machines.
+
+* Do three shorter exams.
+
+* Have an early assignment that requires demonstrating all of the
+  tooling works.
+
+* Think hard about what to ask on the exams to force students
+  internalizing the important concepts from the class.  The box-swap
+  question on midterm 1 was good in this regard.  So was Fraud problem
+  since it was more open ended (less guidance on where to write code)
+  and required a run-time loop, which caused some students to trip up
+  on the phase distinction.
+
+* Make testing take time.
+
+* Possible idea: Each assignment due in two parts, first week has no
+  testing feedback.  Second has testing feedback.  Teach random
+  testing early and get students to build their own testers.
+
+* Add CMOVcc instructions to a86 and use them in the compiler.  All
+  the jumping is teaching a bad habit.
+
+* There should be a FAQ on software: I have nasm installed but when I
+  run DrRacket it complains that the nasm command cannot be found.
+  Need to run `drracket` from the command line.
+
+DVH ideas based on Fall 2024
+
+* Looking over past notes: the CMOVcc stuff has happened.  The early
+  tooling assignment has happened.  Non-x86 machines seem to be
+  resolved.
+
+* Exams are now 24 hours, which seems right.  Miss 1 lecture.
+
+* Before semester starts, get autograders for all assignments out; set
+  them to be released on appropriate dates.  Set up "playground"
+  autograders to be released at same time with no deadline.  Set up
+  autograders for "practice" midterms too.
+
+* Remove GRACE stuff from notes.  Nobody uses it.
+
+* Move string interning to Hoax, cover static data there.
+
+* Create a new assignment 5 that is (1) adding immutable versions
+  existing mutable data structures.  This will require some rethinking
+  of the encoding scheme.  Vectors could be done now by using a bit in
+  the length field, but boxes are trickier.  Probably want that info
+  in the pointer.  (2) adding compound literals: pairs, vectors,
+  boxes.  This is essentially implementing Mug minus symbols, so maybe
+  that language goes away or becomes only about symbols?
+
+* After Hustle, go to Iniquity.  Come back later to Hoax.  It's less
+  essential and better to get into functions and calls earlier.  Would
+  be great to get through lambda before Midterm 2.
+
+* Stay on top of assignment release dates so that you can do 6 regular
+  assignments and the final project.  The trickiest part comes around
+  Midterm 2 where you're up against Thanksgiving and the end of the
+  semester soon after.
+
+* Fix Offset to take arbitrary memory expressions (you can do this in
+  a backward compatible way by overloading the Offset constructor:
+  - (Offset e) takes a memory expression (new)
+  - (Offset e1 e2) => (Offset (Plus e1 e2)) backwards compatible
+  This let's you write much better, e.g., vector code and you can write
+  (Offset 'rax) instead of (Offset 'rax 0), etc.
+
+* Take past exam questions and make them stand-alone exercises that
+  have autograders on Gradescope.
+
+* More quizes in the second half of the class.
+
+* Keep developing the slides with more visual presentations later in
+  the semester.
+
+* Potentially rethink pointer tagging scheme to take advantage of
+  unused upper bits.
+
+* Hoax and Hustle were a slow slog.  Gotta figure out how to get
+  through that quicker in the future.
+
+* Have a86 provide bindings for all register names.
+
+* Hide current-objs from students, notes, etc.  Use run.rkt instead.
+  Maybe only have run do asm-interp with run-time linked in,
+  i.e. don't also do bits->value.
+
+* Need to have a better story for syntax checking starting with Fraud.
+  In things like Iniquity need to deal with the implict 2 namespaces.
