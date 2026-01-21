@@ -15,8 +15,14 @@
 @title[#:style 'unnumbered #:tag "faq"]{FAQ}
 @section{Software Installation}
 @(fancy-collapsible 
-@para{Problem}
-@para{Solution}
+@para{Problem 1}
+@para{Solution 1}
+)
+
+@section{Debugging}
+@(fancy-collapsible 
+@para{Problem 2}
+@para{Solution 2}
 )
 
 @section{Quiz}

@@ -42,7 +42,7 @@ implement several related languages.
 	 (list* (list @bold{Staff} 'cont)
 	        (list @bold{Name} @elem{@bold{E-mail}})
 	        (list prof1 prof1-email)
-	        #;(list prof2 prof2-email)
+	        (list prof2 prof2-email)
 		staff)]
 
 @bold{Communications:} @link[@elms-url]{ELMS}, @link[@piazza]{Piazza}
