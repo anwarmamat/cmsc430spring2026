@@ -29,17 +29,17 @@
    (define (tri n)
       (list (Global 'entry)
          (Label 'entry)
-         (Mov 'rbx n)      (% "the \"input\"")
+         (Mov 'rcx n)      (% "the \"input\"")
          (%%% "tri: a recursive function for computing nth")
          (%%% "triangular number, where n is given in rbx.")
          (Label 'tri)
-         (Cmp 'rbx 0)      (% "if rbx = 0, done")
+         (Cmp 'rcx 0)      (% "if rbx = 0, done")
          (Je 'done)
-         (Push 'rbx)       (% "save rbx")
-         (Sub 'rbx 1)
+         (Push 'rcx)       (% "save rbx")
+         (Sub 'rcx 1)
          (Call 'tri)       (% "compute tri(rbx-1) in rax")
          (Pop 'rbx)        (% "restore rbx")
-         (Add 'rax 'rbx)   (% "result is rbx+tri(rbx-1)")
+         (Add 'rax 'rcx)   (% "result is rbx+tri(rbx-1)")
          (Ret)
          (Label 'done)     (% "jump here for base case")
          (Mov 'rax 0)      (% "return 0")
@@ -72,7 +72,6 @@ HERE
      (save-file "tri.s" (asm-string (tri 36)))
      (save-file "main.c" main.c)
      (save-file "gcd.c" gcd.c)))
-
 
 @title[#:tag "a86"]{a86: a Little Assembly Language}
 
@@ -252,10 +251,10 @@ file with @tt{nasm}:
  requirements.}
 
 @shellbox[
- (format "nasm -f ~a -o tri.o tri.s"
+ (format "~a clang -c -o tri.o tri.s"
          (if (eq? 'macosx (system-type 'os))
-             "macho64 --gprefix _"
-             "elf64"))]
+             "arch -x86_64"
+             ""))]
 
 To run the object file, we will need to link with a small C program
 that can call the @tt{entry} label of our assembly code and then
@@ -338,11 +337,11 @@ Here's the triangular number example:
  (define tri-36
    (list (Global 'entry)
          (Label 'entry)
-         (Mov 'rbx 36)     (% "the \"input\"")
+         (Mov 'rcx 36)     (% "the \"input\"")
          (%%% "tri: a recursive function for computing nth")
          (%%% "triangular number, where n is given in rbx.")
          (Label 'tri)
-         (Cmp 'rbx 0)      (% "if rbx = 0, done")
+         (Cmp 'rcx 0)      (% "if rbx = 0, done")
          (Je 'done)
          (Push 'rbx)       (% "save rbx")
          (Sub 'rbx 1)

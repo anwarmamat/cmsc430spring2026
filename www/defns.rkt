@@ -52,10 +52,10 @@
 (define classroom2 "IRB 0318")
 
 ;(define discord "TBD")
-(define piazza "https://piazza.com/umd/spring2025/cmsc430/home")
-(define gradescope "https://www.gradescope.com/courses/963811")
+(define piazza "https://piazza.com/umd/spring2026/cmsc430/home")
+(define gradescope "https://www.gradescope.com/courses/1240337")
 
-(define feedback "https://forms.gle/KQ2WQxSrDGurnzRf7")
+(define feedback "https://forms.gle")
 
 (define (assign-deadline i)
   (list-ref '("Tuesday, February 10, 11:59PM"
