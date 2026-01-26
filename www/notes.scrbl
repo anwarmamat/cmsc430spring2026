@@ -14,8 +14,8 @@ suggestions for improving the material, @bold{please},
 @include-section{notes/1/what-is-a-compiler.scrbl}
 @include-section{notes/1/ocaml-to-racket.scrbl}
 @include-section{notes/a86.scrbl}
-@;include-section[(lib "a86/scribblings/a86.scrbl")]
-@;include-section{notes/abscond.scrbl}
+@include-section[(lib "a86/scribblings/a86.scrbl")]
+@include-section{notes/abscond.scrbl}
 @;include-section{notes/blackmail.scrbl}
 @;include-section{notes/con.scrbl}
 @;include-section{notes/dupe.scrbl}

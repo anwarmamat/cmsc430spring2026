@@ -357,8 +357,8 @@ bit about the x86-64 assembly language.
 @margin-note{Note: on macOS, labels must be prepended with @tt{_},
 while on Linux they are not; e.g. @tt{_entry} vs @tt{entry}.}
 
-Above is a x86-64 program, written in NASM syntax.  We will be using
-@tt{nasm} as our assembler in this class because it is widely used and
+Above is a x86-64 program, written in Intel syntax.  We will be using
+@tt{clang/GAS} as our assembler in this class because it is widely used and
 available on most platforms.
 
 @itemlist[#:style 'numbered
@@ -382,14 +382,20 @@ the return value.}
 caller.}
 ]
 
-To assemble this program into an object file, we can run the @tt{nasm}
+To assemble this program into an object file, we can run the @tt{clang}
 assembler:
 
 @shellbox[
+ (format "~a clang -c -o 42.o 42.s"
+         (if (eq? 'macosx (system-type 'os))
+             "arch -x86_64"
+             ""))]
+
+@;{shellbox[
   (format "nasm -f ~a -o 42.o 42.s"
           (case (system-type 'os)
             [(macosx) "macho64"]
-            [(unix) "elf64"]))]
+            [(unix) "elf64"]))]}
 
 @margin-note{Note: on macOS, the format option @tt{-f} should be
 @tt{macho64}; on Linux it should be @tt{elf64}.}
@@ -441,7 +447,7 @@ Writing the @racket[compile] function is easy:
 (compile (Lit 38))
 )
 
-To convert back to the concrete NASM syntax, we use
+To convert back to the concrete Intel syntax, we use
 @racket[asm-display].
 
 @margin-note{Note: the printer takes care of the macOS vs Linux label

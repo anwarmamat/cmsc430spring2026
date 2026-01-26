@@ -31,15 +31,15 @@
          (Label 'entry)
          (Mov 'rcx n)      (% "the \"input\"")
          (%%% "tri: a recursive function for computing nth")
-         (%%% "triangular number, where n is given in rbx.")
+         (%%% "triangular number, where n is given in rcx.")
          (Label 'tri)
-         (Cmp 'rcx 0)      (% "if rbx = 0, done")
+         (Cmp 'rcx 0)      (% "if rcx = 0, done")
          (Je 'done)
-         (Push 'rcx)       (% "save rbx")
+         (Push 'rcx)       (% "save rcx")
          (Sub 'rcx 1)
-         (Call 'tri)       (% "compute tri(rbx-1) in rax")
-         (Pop 'rbx)        (% "restore rbx")
-         (Add 'rax 'rcx)   (% "result is rbx+tri(rbx-1)")
+         (Call 'tri)       (% "compute tri(rcx-1) in rax")
+         (Pop 'rcx)        (% "restore rcx")
+         (Add 'rax 'rcx)   (% "result is rcx+tri(rcx-1)")
          (Ret)
          (Label 'done)     (% "jump here for base case")
          (Mov 'rax 0)      (% "return 0")
@@ -128,10 +128,10 @@ This chapter describes the a86 language at a high-level.  See
 Before describing a86, let's take a brief look at x86.
 
 There are a few different human-readable formats for writing
-x86 assembly code, but we'll be using the one supported by
-@link["https://www.nasm.us/"]{the Netwide Assembler} (NASM).
+x86 assembly code, but we'll be using the Intel Syntax 
+ supported by Clang/GAS (GNU Assembler).
 
-Here's an example x86 program, written using nasm syntax.
+Here's an example x86 program, written using the intel syntax.
 The program has one global label called @tt{entry}, which
 will be the main entry point for the program. This program
 computes the 36th triangular number, which will reside in
@@ -141,11 +141,7 @@ register @tt{rax} when the code returns.
 Linux systems.  On MacOS, you need to prefix all label names with an
 underscore, while on Linux you do not.  So on a Mac, you would use the
 names @tt{_entry}, @tt{_tri}, and @tt{_done}, while on Linux you would
-use @tt{entry}, @tt{tri}, and @tt{done}.
-
-Alternatively, you can impose the underscore naming convention by
-passing @tt{--gprefix _} to @tt{nasm}; this way you avoid having to
-write the underscores within the file.}
+use @tt{entry}, @tt{tri}, and @tt{done}.}
 
 @filebox-include[fancy-nasm a86 "tri.s"]
 
@@ -161,7 +157,7 @@ even at a low-level.
 Without getting too bogged down in the details, here how the
 code works. Instructions execute one after another. There
 are a number of registers which can be used to hold values.
-This code makes use of the @tt{rax} and @tt{rbx} register
+This code makes use of the @tt{rax} and @tt{rcx} register
 (and some other registers are implicitly used and altered by
 the @tt{call}, @tt{push}, @tt{pop} and @tt{ret}
 instructions). The lines like @tt{entry:}, @tt{tri:}, and
@@ -172,10 +168,10 @@ the targets of jumps and calls.
 Suppose we start executing at @tt{entry}.
 
 @itemlist[
- @item{@tt{mov rbx, 36} sets the @tt{rbx} register to 36.}
+ @item{@tt{mov rcx, 36} sets the @tt{rcx} register to 36.}
 
- @item{@tt{cmp rbx 0} compares the value in register @tt{
-   rbx} to zero. Executing this instruction sets flags in the
+ @item{@tt{cmp rcx 0} compares the value in register @tt{
+   rcx} to zero. Executing this instruction sets flags in the
   CPU, which affect subsequent ``conditional'' instructions.
   In this program, the next instruction is a conditional jump.}
 
@@ -183,15 +179,15 @@ Suppose we start executing at @tt{entry}.
   following label @tt{done} or proceeds to the next
   instruction, based on the state of the comparison flags. The
   @tt{je} instruction jumps if the comparison was equal, so
-  control jumps to done if @tt{rbx} was 0 in this program. If
+  control jumps to done if @tt{rcx} was 0 in this program. If
   not, the next instruction is executed.}
 
- @item{@tt{push rbx} uses memory as a stack to save the
-  value of @tt{rbx}. Under the hood this is modifying a
+ @item{@tt{push rcx} uses memory as a stack to save the
+  value of @tt{rcx}. Under the hood this is modifying a
   register that holds a pointer to the stack memory location
   (register @tt{rsp}).}
 
- @item{@tt{sub rbx, 1} decrements @tt{rbx} by 1.}
+ @item{@tt{sub rcx, 1} decrements @tt{rcx} by 1.}
 
  @item{@tt{call tri} performs something like a function
   call; it uses memory as a stack to save the current location
@@ -201,14 +197,14 @@ Suppose we start executing at @tt{entry}.
   functions, but this uses the stack to mimic the
   call-and-return mechanism of functions.}
 
- @item{@tt{pop rbx} uses the stack memory to pop off the top
-  element and move it into @tt{rbx}, adjusting the stack
-  pointer appropriately.  This has the effect of restoring @tt{rbx}
+ @item{@tt{pop rcx} uses the stack memory to pop off the top
+  element and move it into @tt{rcx}, adjusting the stack
+  pointer appropriately.  This has the effect of restoring @tt{rcx}
   to the value saved earlier by the @tt{push}, i.e. before the decrement
   and any changes done in the call to @tt{tri}.}
 
- @item{@tt{add rax, rbx} updates @tt{rax} to hold @tt{rax}
-  plus @tt{rbx}.}
+ @item{@tt{add rax, rcx} updates @tt{rax} to hold @tt{rax}
+  plus @tt{rcx}.}
 
  @item{@tt{ret} does a ``return,'' i.e. it pops an address
   from the stack and jumps to it. In this case, the jump
@@ -218,7 +214,7 @@ Suppose we start executing at @tt{entry}.
  @item{@tt{mov rax, 0} this instruction is only reached from
   the earlier conditional jump. It sets @tt{rax} to 0. This
   program computes its result in @tt{rax} so this is saying
-  that when @tt{rbx} (the ``input'') is 0, then (the
+  that when @tt{rcx} (the ``input'') is 0, then (the
   ``output'') is 0.}
 
  @item{@tt{ret} does a ``return,'' either to a prior call to
@@ -243,7 +239,7 @@ x86 code, which should not need to push anything to the
 stack or use the @tt{call} instruction.}
 
 We can compile the @tt{tri.s} assembly program to an object
-file with @tt{nasm}:
+file with @tt{clang}:
 
 @margin-note{The format argument should be @tt{macho64} on macOS and
  @tt{elf64} on Linux.  The @tt{--gprefix _} argument should be given
@@ -306,7 +302,7 @@ in @secref{Texts}.  But now let's turn to a86.
 Here we will employ one of the great ideas in computer
 science: we will represent programs as data. Rather than
 toil away at the level of x86, writing programs directly in
-nasm syntax, compiling, and running them, we will instead
+intel syntax, compiling, and running them, we will instead
 design a data type definition for representing x86 programs
 and @emph{compute} programs.
 
@@ -339,15 +335,15 @@ Here's the triangular number example:
          (Label 'entry)
          (Mov 'rcx 36)     (% "the \"input\"")
          (%%% "tri: a recursive function for computing nth")
-         (%%% "triangular number, where n is given in rbx.")
+         (%%% "triangular number, where n is given in rcx.")
          (Label 'tri)
-         (Cmp 'rcx 0)      (% "if rbx = 0, done")
+         (Cmp 'rcx 0)      (% "if rcx = 0, done")
          (Je 'done)
-         (Push 'rbx)       (% "save rbx")
-         (Sub 'rbx 1)
-         (Call 'tri)       (% "compute tri(rbx-1) in rax")
-         (Pop 'rbx)        (% "restore rbx")
-         (Add 'rax 'rbx)   (% "result is rbx+tri(rbx-1)")
+         (Push 'rcx)       (% "save rcx")
+         (Sub 'rcx 1)
+         (Call 'tri)       (% "compute tri(rcx-1) in rax")
+         (Pop 'rcx)        (% "restore rcx")
+         (Add 'rax 'rcx)   (% "result is rcx+tri(rcx-1)")
          (Ret)
          (Label 'done)     (% "jump here for base case")
          (Mov 'rax 0)      (% "return 0")
@@ -380,17 +376,17 @@ number.  Easy-peasy:
  (define (tri n)
    (list (Global 'entry)
          (Label 'entry)
-         (Mov 'rbx n)      (% "the \"input\"")
+         (Mov 'rcx n)      (% "the \"input\"")
          (%%% "tri: a recursive function for computing nth")
-         (%%% "triangular number, where n is given in rbx.")
+         (%%% "triangular number, where n is given in rcx.")
          (Label 'tri)
-         (Cmp 'rbx 0)      (% "if rbx = 0, done")
+         (Cmp 'rcx 0)      (% "if rcx = 0, done")
          (Je 'done)
-         (Push 'rbx)       (% "save rbx")
-         (Sub 'rbx 1)
-         (Call 'tri)       (% "compute tri(rbx-1) in rax")
-         (Pop 'rbx)        (% "restore rbx")
-         (Add 'rax 'rbx)   (% "result is rbx+tri(rbx-1)")
+         (Push 'rcx)       (% "save rcx")
+         (Sub 'rcx 1)
+         (Call 'tri)       (% "compute tri(rcx-1) in rax")
+         (Pop 'rcx)        (% "restore rcx")
+         (Add 'rax 'rcx)   (% "result is rcx+tri(rcx-1)")
          (Ret)
          (Label 'done)
          (Mov 'rax 0)
@@ -404,7 +400,7 @@ It's also easy to go from our data representation to its
 interpretation as an x86 program.
 
 There is a function provided for printing an a86 program as an x86
-program using nasm notation, called @racket[asm-display].  Calling
+program using intel syntax notation, called @racket[asm-display].  Calling
 this function prints to the current output port, but it's also
 possible to write the output to a file or convert it to a string.
 
@@ -427,7 +423,7 @@ us, which what the implementors of the a86 library have done:
 The @racket[asm-interp] function consumes an @tt{a86}
 program as input and produces the integer result the program
 computes, i.e. it is an @bold{Interpreter} for a86. Behind
-the scenes it does this by converting to nasm, assemblying,
+the scenes it does this by converting to X86, assemblying,
 compiling a thin C wrapper, executing the program, and
 reading the result. This will be a rather handy tool both in
 interactively exploring the a86 language (you can write

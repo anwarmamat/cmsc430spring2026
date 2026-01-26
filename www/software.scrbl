@@ -50,9 +50,6 @@ This course will make use of the following software:
  @item{Racket @tt{langs} package: a package containing utilities
   for this course.}
 
- @item{NASM: the Netwide Assembler, which we will use to
-  assemble x86 programs.}
-
  @item{GCC: the GNU compiler collection or a GCC-compatible
   system such as clang.}
 ]
@@ -66,9 +63,7 @@ If you have an ARM-based machine, you will need to use
 
 For x86-based Linux machines, you will need to
 @seclink["install-racket"]{install Racket} and the
-@seclink["langs-package"]{langs package}.  Finally, install @tt{nasm}.
-You can use your favorite package manager; they should all have
-@tt{nasm}.
+@seclink["langs-package"]{langs package}. 
 
 
 @section[#:tag "mac"]{Using macOS}
@@ -83,10 +78,7 @@ a chip name containing either Intel or Apple.
 
 Intel-based Macs are fairly straightforward to set up.  You will need
 to @seclink["install-racket"]{install Racket} and the
-@seclink["langs-package"]{langs package}.  You will also need to
-install @tt{nasm}.  It's probably easiest to use a package manager
-such as @link["https://brew.sh/"]{Homebrew} to install with @tt{brew
-install nasm}.
+@seclink["langs-package"]{langs package}. 
 
 You will also want to make sure your Racket installation is visible
 from your @tt{PATH} environment variable.  Assuming Racket was
@@ -124,7 +116,7 @@ Otherwise, follow the steps given above.
 
 For Windows users, using WSL for testing is highly recommended. Beyond
 the first few assignments, the projects will require generating and
-executing assembly code using the nasm package. Students in the past
+executing assembly code using the Clang/GAS. Students in the past
 have had trouble trying to configure this in the Windows environment,
 so an easier workaround is simply to enable WSL and run your tests through
 some Linux Distribution. Here is a breakdown of the steps:
@@ -144,7 +136,7 @@ some Linux Distribution. Here is a breakdown of the steps:
    upgrade}. These two may take some time. }
 
  @item{Run @tt{sudo apt install racket} and @tt{
-   sudo apt install nasm}. These two should cover the necessary
+   sudo apt install clang}. These two should cover the necessary
   installations for this course.}
 
  @item{Here is where to determine which IDE you would like to
@@ -215,26 +207,24 @@ The @tt{-Y} command line option sets up X11 forwarding, which lets you
 run GUI applications from GRACE.  If you leave this off, programs like
 DrRacket will fail to launch when started.
 
-Racket and @tt{nasm} are already installed, but you will
+Racket and @tt{clang} are already installed, but you will
 need to modify your @tt{PATH} environment variable so that you can
 execute them from the command-line.  You can do this with the
 following commands:
 
 @verbatim|{
    # CMSC 430 set up
-   set path = ( /cell_root/software/racket/8.4/sys/bin $path )
-   set path = ( /cell_root/software/nasm/2.15.05/sys/bin/ $path )}|
+   set path = ( /cell_root/software/racket/8.4/sys/bin $path )}|
 
 If you add these lines to the @tt{.path} file in your home directory, then you
 won't have to run this command manually every time you login; it will happen
 automatically.
 
 Once set, you should be able to run commands such as @tt{racket},
-@tt{raco}, and @tt{nasm}.  Other tools such as @tt{gcc} are already
+@tt{raco}.  Other tools such as @tt{gcc/clang} are already
 available.
 
 Finally, you will need to install @secref{langs-package}.
-
 
 @section[#:tag "install-racket"]{Installing Racket}
 
@@ -325,10 +315,6 @@ following:
             @item{Racket 7.9 [bc]}
             @item{Racket 7.8 [cs]}
             @item{Racket 7.8 [bc]}]}
-
- @item{NASM:
-  @itemlist[@item{NASM version 2.13.02}
-            @item{NASM version 2.15.05}]}
 
  @item{GCC:
   @itemlist[@item{gcc 9.3.0}
