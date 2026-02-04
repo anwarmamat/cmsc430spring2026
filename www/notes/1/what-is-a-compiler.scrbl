@@ -176,7 +176,7 @@ language."  Python is not an interpreted language, rather it's most
 well-known implementation is an interpreter.  Compilers for Python
 exist as do interpreters for C.
 
-@subsection{What will be do in this course?}
+@subsection{What will we do in this course?}
 
 We are going to study how to implementat a programming language by
 making our own programming language.  In particular, we are going to

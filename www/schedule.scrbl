@@ -117,10 +117,20 @@
                @; Week 1
                (list "Week 1"
                      @day{01/27}
+                     "Snow Day. No Class"
+                     "")
+               (list ""
+                     @day{01/29}
+                     "Snow Day. No Class"
+                     "")
+
+                  @; Week 2
+               (list "Week 2"
+                     @day{02/03}
                      @secref{Intro}
                      @seclink["Assignment 1"]{A1})
                (list ""
-                     @day{01/29}
+                     @day{02/05}
                      @secref["OCaml to Racket"]
                      "Quiz 1")
 

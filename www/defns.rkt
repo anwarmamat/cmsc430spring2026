@@ -58,7 +58,7 @@
 (define feedback "https://forms.gle")
 
 (define (assign-deadline i)
-  (list-ref '("Tuesday, February 10, 11:59PM"
+  (list-ref '("Friday, February 13, 11:59PM"
               ""
               ""
               ""

@@ -16,9 +16,9 @@ suggestions for improving the material, @bold{please},
 @include-section{notes/a86.scrbl}
 @include-section[(lib "a86/scribblings/a86.scrbl")]
 @include-section{notes/abscond.scrbl}
-@;include-section{notes/blackmail.scrbl}
-@;include-section{notes/con.scrbl}
-@;include-section{notes/dupe.scrbl}
+@include-section{notes/blackmail.scrbl}
+@include-section{notes/con.scrbl}
+@include-section{notes/dupe.scrbl}
 @;include-section{notes/dodger.scrbl}
 @;include-section{notes/evildoer.scrbl}
 @;include-section{notes/extort.scrbl}
