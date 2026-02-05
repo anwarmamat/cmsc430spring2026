@@ -5,8 +5,8 @@
 (define prof1 (link "https://www.cs.umd.edu/~anwar/" "Anwar Mamat"))
 (define prof1-pronouns "he/him")
 (define prof1-email "anwar@umd.edu")
-(define prof1-ohs (list (list "TBD" (link "www.zoom.umd" "Zoom"))
-                        (list "TBD" "IRB 2248")))
+(define prof1-ohs (list (list "Virtual on Zoom" (link "https://calendar.app.google/ZDFNR7qGhACZkJZu9" "Schedule here"))
+                        (list "TH 1:00-2:00pm" "IRB 2248")))
 (define prof1-initials "AM")
 
 (define prof2 (link "https://www.cs.umd.edu/people/milijana" "Milijana Surbatovich"))

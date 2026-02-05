@@ -21,8 +21,11 @@
 
 @section{Debugging}
 @(fancy-collapsible 
-@para{Problem 2}
-@para{Solution 2}
+@para{`make submit.zip` is not working.}
+@para{On WSL, try:
+
+@tt{sudo apt install build-essential; sudo apt install zip}
+}
 )
 
 @section{Quiz}
