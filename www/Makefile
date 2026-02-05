@@ -34,6 +34,7 @@ scribble:
 		++style css/faq.css \
 		++style css/fancyverb.css \
 		++extra js/accessibility.js \
+		++extra slides \
 		++xref-in setup/xref load-collections-xref \
 		--redirect-main http://docs.racket-lang.org/ \
 		$(course).scrbl

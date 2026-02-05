@@ -127,23 +127,24 @@
                   @; Week 2
                (list "Week 2"
                      @day{02/03}
-                     @secref{Intro}
+                     @itemlist[@item{@secref{Intro} @link["slides/01-intro.pdf"]{(slide)}} 
+                               @item{@secref{OCaml to Racket}}]
                      @seclink["Assignment 1"]{A1})
                (list ""
                      @day{02/05}
-                     @secref["OCaml to Racket"]
+                     (list @secref["a86"] @link["slides/02-a86.pdf"]{(slide)})
                      "Quiz 1")
 
-               @;{ Week 2
-               (list "Week 2"
-                     @day{02/04}
-                     @secref["a86"]
+                @; Week 3
+               (list "Week 3"
+                     @day{02/10}
+                     (list @secref["a86"] @link["slides/02-a86.pdf"]{(slide)})
                      "")
                (list ""
-                     @day{02/06}
-                     @secref["a86"]
-                     @seclink["Assignment 2"]{A2})
-
+                     @day{02/12}
+                     @secref["Abscond"]
+                     "Quiz 2")
+@;{
                @; Week 3
                (list "Week 3"
                      @day{02/11}

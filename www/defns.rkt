@@ -34,7 +34,7 @@
 (define midterm-hours "24")
 (define final-date "Monday, May 18")
 (define final-end-time "3:30PM")
-(define elms-url "https://umd.instructure.com/courses/1368381")
+(define elms-url "https://umd.instructure.com/courses/1398590")
 
 
 (define racket-version "9.0")
