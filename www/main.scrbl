@@ -62,28 +62,7 @@ staff using this @link[feedback]{form}.
 
 @bold{TA office hours:} @office-hour-location (unless otherwise noted)
 
-@tabular[#:style 'boxed
-         #:row-properties '(bottom-border ())
-         (list (list @bold{Time}  @bold{Monday} @bold{Tuesday} @bold{Wednesday} @bold{Thursday}   @bold{Friday})
-               (list  "9:00 AM"   'cont         ""       ""          ""          'cont)
-               (list  "9:30 AM"   'cont         ""       ""          ""          'cont)
-               (list "10:00 AM"   ""       		""       ""          'cont             "")
-               (list "10:30 AM"   ""            ""       ""          'cont             "")
-               (list "11:00 AM"   ""            ""        ""          ""           "")
-               (list "11:30 AM"   ""            ""        ""          ""           "")
-               (list "12:00 PM"   ""            'cont          ""   'cont             'cont)
-               (list "12:30 PM"   ""            ""             ""   ""          'cont)
-               (list  "1:00 PM"   'cont         ""             ""         ""  'cont)
-               (list  "1:30 PM"   'cont         'cont          ""         ""          'cont)
-               (list  "2:00 PM"   ""      ""      ""    "" "")
-               (list  "2:30 PM"   ""      ""      ""    "" "")
-               (list  "3:00 PM"   'cont         'cont          'cont            ""          "")
-               (list  "3:30 PM"   ""        'cont          ""           ""          "")
-               (list  "4:00 PM"   ""        'cont          ""           'cont             "")
-               (list  "4:30 PM"   ""        'cont          ""           'cont             "")
-               (list  "5:00 PM"   ""        'cont          ""           'cont             'cont)
-               (list  "5:30 PM"   ""        'cont          ""            'cont             'cont))]
-
+@office-hours
 
 @include-section{syllabus.scrbl}
 @include-section{texts.scrbl}

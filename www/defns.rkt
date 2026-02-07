@@ -36,13 +36,13 @@
 (define final-end-time "3:30PM")
 (define elms-url "https://umd.instructure.com/courses/1398590")
 
-
 (define racket-version "9.0")
 
 (define staff
-  (list (list "Pierce Darragh"     "pdarragh@umd.edu")
-        (list "Kalyan Bhetwal"     "kbhetwal@umd.edu")
-        (list "..."     "...")
+  (list (list "Pierce Darragh" "pdarragh@umd.edu")
+        (list "Justine Frank"  "jpfrank@umd.edu")
+        (list "Kalyan Bhetwal" "kbhetwal@umd.edu")
+        (list "Yi Cai"         "yicai@umd.edu")
         ))
 
 (define lecture-schedule1 "TTh, 9:30-10:45am")
@@ -65,4 +65,21 @@
               "")
             (sub1 i)))
 
- 
+(define office-hours
+  (itemlist
+   #:style 'compact
+   (item "Monday"
+         (itemlist
+          (item "10:00am–1:00pm — Kalyan")))
+   (item "Tuesday"
+         (itemlist
+          (item "8:00am–11:00am — Yi")
+          (item "1:30pm–4:30pm — Pierce, Justine")))
+   (item "Wednesday"
+         (itemlist))
+   (item "Thursday"
+         (itemlist
+          (item "1:30pm–4:30pm — Pierce, Justine")))
+   (item "Friday"
+         (itemlist
+          (item "10:00am—1:00pm — Kalyan")))))
