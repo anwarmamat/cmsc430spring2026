@@ -12,7 +12,7 @@
 (define prof2 (link "https://www.cs.umd.edu/people/milijana" "Milijana Surbatovich"))
 (define prof2-email "milijana@umd.edu")
 (define prof2-pronouns "she/her")
-(define prof2-ohs (list (list "F 10:00-11:00am" "IRB 5246")))
+(define prof2-ohs (list (list "Tu 10:00-11:00am" "IRB 5246")))
 (define prof2-initials "MS")
 
 
