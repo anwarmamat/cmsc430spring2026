@@ -43,6 +43,7 @@
         (list "Justine Frank"  "jpfrank@umd.edu")
         (list "Kalyan Bhetwal" "kbhetwal@umd.edu")
         (list "Yi Cai"         "yicai@umd.edu")
+        (list "Sam Badalov"    "sbadalov@umd.edu")
         ))
 
 (define lecture-schedule1 "TTh, 9:30-10:45am")
@@ -74,12 +75,14 @@
    (item "Tuesday"
          (itemlist
           (item "8:00am–11:00am — Yi")
+          (item "11:00am–12:30pm — Sam")
           (item "1:30pm–4:30pm — Pierce, Justine")))
    (item "Wednesday"
          (itemlist))
    (item "Thursday"
          (itemlist
+          (item "11:00am–12:30pm — Sam")
           (item "1:30pm–4:30pm — Pierce, Justine")))
    (item "Friday"
          (itemlist
-          (item "10:00am—1:00pm — Kalyan")))))
+          (item "10:00am–1:00pm — Kalyan")))))
