@@ -132,13 +132,13 @@
                      @seclink["Assignment 1"]{A1})
                (list ""
                      @day{02/05}
-                     (list @secref["a86"] @link["slides/02-a86.pdf"]{(slide)})
+                     (list @secref["a86"] @hspace[3] @link["slides/02-a86.pdf"]{(slide)})
                      "Quiz 1")
 
                 @; Week 3
                (list "Week 3"
                      @day{02/10}
-                     (list @secref["a86"] @link["slides/02-a86.pdf"]{(slide)})
+                     (list @secref["a86"] @hspace[3] @link["slides/02-a86.pdf"]{(slide)})
                      "")
                (list ""
                      @day{02/12}

@@ -26,7 +26,7 @@
 (define AVW "AVW")
 (define KEY "KEY")
 
-(define office-hour-location (elem AVW " " "4122"))
+(define office-hour-location (elem AVW " " "4160"))
 
 (define start-date "January 27")
 (define m1-date "March 12")
