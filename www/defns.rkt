@@ -55,12 +55,11 @@
 ;(define discord "TBD")
 (define piazza "https://piazza.com/umd/spring2026/cmsc430/home")
 (define gradescope "https://www.gradescope.com/courses/1240337")
-
-(define feedback "https://forms.gle")
+(define feedback "https://forms.gle/AgMDcDGfLfpyUeQY9")
 
 (define (assign-deadline i)
   (list-ref '("Friday, February 13, 11:59PM"
-              ""
+              "Friday, February 20, 11:59PM"
               ""
               ""
               "")

@@ -16,7 +16,7 @@ assigns = hoax-plus
 zips:
 	mkdir -p $(course)/code/
 	(cd `racket -e '(require pkg/lib) (display (path->string (pkg-directory "langs")))'` ; \
-		tar -c `git ls-files $(langs)`) | \
+		tar -c $(langs)) | \
 	(cd $(course)/code/ ; tar -x ; \
 		for f in $(langs) ; do \
 			zip $${f}.zip -r $${f}/ ; \

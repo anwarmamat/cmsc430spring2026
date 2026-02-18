@@ -139,21 +139,22 @@
                (list "Week 3"
                      @day{02/10}
                      (list @secref["a86"] @hspace[3] @link["slides/02-a86.pdf"]{(slide)})
-                     "")
+                     "Quiz 2")
                (list ""
                      @day{02/12}
-                     @secref["Abscond"]
-                     "Quiz 2")
-@;{
-               @; Week 3
-               (list "Week 3"
-                     @day{02/11}
-                     @secref["Abscond"]
-                     "Quzi 2")
-                  (list ""
-                     @day{02/13}
-                     @secref["Blackmail"]
+                     (list @secref["Abscond"] @hspace[3] @link["slides/03-abscond.pdf"]{(slide)})
+                    @seclink["Assignment 2"]{A2})
+
+               @; Week 4
+               (list "Week 4"
+                     @day{02/17}
+                     (list @secref["Blackmail"] @hspace[3] @link["slides/04-blackmail.pdf"]{(slide)})
                      "Quiz 3")
+                  (list ""
+                     @day{02/19}
+                     (list @secref["Con"] @hspace[3] @link["slides/05-con.pdf"]{(slide)})
+                     "")
+ @;{
               @; Week 4
                (list "Week 4"
                      @day{02/18}
