@@ -60,7 +60,7 @@
 (define (assign-deadline i)
   (list-ref '("Friday, February 13, 11:59PM"
               "Friday, February 20, 11:59PM"
-              ""
+              "Friday, February 27, 11:59PM"
               ""
               "")
             (sub1 i)))
