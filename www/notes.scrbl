@@ -10,6 +10,7 @@ suggestions for improving the material, @bold{please},
 @link["https://github.com/cmsc430/www"]{issue on Github}.
 
 @local-table-of-contents[#:style 'immediate-only]
+
 @include-section{notes/1/what-is-a-compiler.scrbl}
 @include-section{notes/1/ocaml-to-racket.scrbl}
 @include-section{notes/a86.scrbl}
@@ -25,12 +26,12 @@ suggestions for improving the material, @bold{please},
 @;include-section{notes/grift.scrbl}
 @include-section{notes/hustle.scrbl}
 @include-section{notes/hoax.scrbl}
-@include-section{notes/iniquity.scrbl}
+@;include-section{notes/iniquity.scrbl}
 @;include-section{notes/juvie.scrbl}
-@include-section{notes/jig.scrbl}
-@include-section{notes/knock.scrbl}
-@include-section{notes/loot.scrbl}
-@include-section{notes/mug.scrbl}
+@;include-section{notes/jig.scrbl}
+@;include-section{notes/knock.scrbl}
+@;include-section{notes/loot.scrbl}
+@;include-section{notes/mug.scrbl}
 @;include-section{notes/mountebank.scrbl}
 @;include-section{notes/neerdowell.scrbl}
 @;include-section{notes/outlaw.scrbl}
