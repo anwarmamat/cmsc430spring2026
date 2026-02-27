@@ -75,13 +75,13 @@
          (itemlist
           (item "8:00am–11:00am — Yi")
           (item "11:00am–12:30pm — Sam")
-          (item "1:30pm–4:30pm — Pierce, Justine")))
+          (item "2:00pm–4:30pm — Pierce, Justine")))
    (item "Wednesday"
          (itemlist))
    (item "Thursday"
          (itemlist
           (item "11:00am–12:30pm — Sam")
-          (item "1:30pm–4:30pm — Pierce, Justine")))
+          (item "2:00pm–4:30pm — Pierce, Justine")))
    (item "Friday"
          (itemlist
           (item "10:00am–1:00pm — Kalyan")))))
