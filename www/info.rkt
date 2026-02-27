@@ -2,5 +2,7 @@
 (define test-omit-paths '("notes/fp/sieve.rkt"
                           "notes/agreement/example.rkt"))
 (define deps
-  (list "base" "rackunit"
+  (list "base"
+        "rackunit"
+        "scribble-math"
         "git+https://github.com/cmsc430/langs.git?path=#main"))

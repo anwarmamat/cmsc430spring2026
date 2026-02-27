@@ -1,26 +1,25 @@
 #lang scribble/manual
 
-@(require scribble/core
+@(require "fancyverb.rkt"
           racket/file
-          racket/system
-          racket/string
           racket/port
-          )
+          racket/sandbox
+          racket/string
+          racket/system
+          scribble/core
+          scribble/examples
+          scribble-math/dollar)
 
-@(require scribble-math/dollar)
-@(require scribble/examples racket/sandbox)
-@(require regex-machine)
-@(require "fancyverb.rkt")
 
 @title[#:style 'unnumbered #:tag "faq"]{FAQ}
 @section{Software Installation}
-@(fancy-collapsible 
+@(fancy-collapsible
 @para{Problem 1}
 @para{Solution 1}
 )
 
 @section{Debugging}
-@(fancy-collapsible 
+@(fancy-collapsible
 @para{`make submit.zip` is not working.}
 @para{On WSL, try:
 
@@ -29,8 +28,8 @@
 )
 
 @section{Quiz}
-@(fancy-collapsible 
-@(multiple-choice 
+@(fancy-collapsible
+@(multiple-choice
    @para{Quiz: What version of Racket should I install?}
   "q1"
     (radio-button "q1" "8.18" "8.15")
