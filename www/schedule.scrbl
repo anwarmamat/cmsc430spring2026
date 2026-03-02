@@ -162,18 +162,19 @@
                      "Quiz 4")
                   (list ""
                      @day{02/26}
-                     (list @secref["Dodger"] @hspace[3] @link["slides/07-dodger-evildoes.pdf"]{(slide)})
+                     (list @secref["Dodger"] @hspace[3] @link["slides/07-dodger.pdf"]{(slide)})
+                     "")
+
+              @; Week 6
+               (list "Week 6"
+                     @day{03/03}
+                     (list @secref["Evildoer"] @hspace[3] @link["slides/08-evildoes.pdf"]{(slide)})
+                     "Quiz 5")
+                  (list ""
+                     @day{03/05}
+                     @secref["Extort"]
                      "")
 @;{
-              @; Week 5
-               (list "Week 5"
-                     @day{02/25}
-                     @secref["Dodger"]
-                     "Quiz 4")
-                  (list ""
-                     @day{02/27}
-                     @secref["Evildoer"]
-                     "")
             @; Week 6
                (list "Week 6"
                      @day{03/04}

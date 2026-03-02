@@ -209,7 +209,7 @@ block of code:
 @#reader scribble/comment-reader
 (racketblock
 (seq (Label 'dbl)
-     (Mov 'rax (Offset 0 'rsp))
+     (Mov 'rax (Mem 'rsp))
      (Add 'rax 'rax)
      (Ret))
 )
@@ -262,7 +262,7 @@ So we can touch-up the example as follows and it will work:
        (Ret)
        
        (Label 'dbl)
-       (Mov 'rax (Offset 'rsp 8))
+       (Mov 'rax (Mem 'rsp 8))
        (Add 'rax 'rax)
        (Ret)))       
 )
@@ -351,7 +351,7 @@ We can verify this works just like before:
        (Ret)
        
        (Label 'dbl)
-       (Mov 'rax (Offset 'rsp 8))
+       (Mov 'rax (Mem 'rsp 8))
        (Add 'rax 'rax)
        (Ret)))       
 )
@@ -413,7 +413,7 @@ arguments but instead leaves it up to the function:
        (Ret)
        
        (Label 'dbl)
-       (Mov 'rax (Offset 'rsp 0)) ; x is at offset 0 now
+       (Mov 'rax (Mem 'rsp 0)) ; x is at offset 0 now
        (Add 'rax 'rax)
        (Add 'rsp 8)               ; pop argument off
        (Ret)))

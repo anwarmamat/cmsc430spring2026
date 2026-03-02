@@ -227,7 +227,7 @@ Here's what this code will compile to, roughly:
 
       ;; (define (f x) ...)
       (Label 'f)
-      (Mov 'rax (Offset 'rsp 0))
+      (Mov 'rax (Mem 'rsp))
       (Cmp 'rax 0)
       (Jne 'if_false)
 
@@ -241,7 +241,7 @@ Here's what this code will compile to, roughly:
       ;; push argument, then jump
       (Lea 'rax 'r2)
       (Push 'rax)
-      (Mov 'rax (Offset 'rsp 8))
+      (Mov 'rax (Mem 'rsp 8))
       (Sub 'rax 1)
       (Push 'rax)
       (Jmp 'f)
@@ -437,7 +437,7 @@ We can modify the code to embody these ideas:
 
       ;; (define (f x) ...)
       (Label 'f)
-      (Mov 'rax (Offset 'rsp 0))
+      (Mov 'rax (Mem 'rsp))
       (Cmp 'rax 0)
       (Jne 'if_false)
 
@@ -451,7 +451,7 @@ We can modify the code to embody these ideas:
       ;; so pop off the argument (don't need it anymore)
       ;; and don't push a new return address, just leave
       ;; our caller's return address on stack
-      (Mov 'rax (Offset 'rsp 0))
+      (Mov 'rax (Mem 'rsp))
       (Sub 'rax 1)
       (Add 'rsp 8) ; pop x
       (Push 'rax)  ; push arg
@@ -553,7 +553,7 @@ call:
 
       ;; (define (f x) ...)
       (Label 'f)
-      (Mov 'rax (Offset 'rsp 0))
+      (Mov 'rax (Mem 'rsp))
       (Cmp 'rax 0)
       (Jne 'if_false)
 
@@ -567,7 +567,7 @@ call:
       ;; so pop off the argument (don't need it anymore)
       ;; and don't push a new return address, just leave
       ;; our caller's return address on stack
-      (Mov 'rax (Offset 'rsp 0))
+      (Mov 'rax (Mem 'rsp 0))
       (Sub 'rax 1)
       (Add 'rsp 8) ; pop x
       (Push 'rax)  ; push arg
@@ -664,8 +664,8 @@ code that moves arguments on the stack:
   (cond [(zero? off) (seq)]
         [(zero? i)   (seq)]
         [else
-         (seq (Mov r8 (Offset rsp (* 8 (sub1 i))))
-              (Mov (Offset rsp (* 8 (+ off (sub1 i)))) r8)
+         (seq (Mov r8 (Mem rsp (* 8 (sub1 i))))
+              (Mov (Mem rsp (* 8 (+ off (sub1 i)))) r8)
               (move-args (sub1 i) off))]))
 )
 
