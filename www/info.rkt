@@ -5,4 +5,5 @@
   (list "base"
         "rackunit"
         "scribble-math"
-        "git+https://github.com/cmsc430/langs.git?path=#main"))
+        "git://github.com/cmsc430/langs"
+        "git://github.com/cmsc430/assignments"))
