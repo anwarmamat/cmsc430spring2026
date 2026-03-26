@@ -168,37 +168,38 @@
               @; Week 6
                (list "Week 6"
                      @day{03/03}
-                     (list @secref["Evildoer"] @hspace[3] @link["slides/08-evildoes.pdf"]{(slide)})
+                     (list @secref["Evildoer"] @hspace[3] @link["slides/08-evildoer.pdf"]{(slide)})
                      "Quiz 5")
                   (list ""
                      @day{03/05}
-                     @secref["Extort"]
+                      (list @secref["Extort"] @hspace[3] @link["slides/09-extort.pdf"]{(slide)})
                      "")
-@;{
-            @; Week 6
-               (list "Week 6"
-                     @day{03/04}
-                     @secref["Extort"]
-                     "Quiz 5")
-                  (list ""
-                     @day{03/6}
-                     @secref["Fraud"]
-                     "Practice Midterm 1")
-             @; Week 7
+            @; Week 7
                (list "Week 7"
-                     @day{03/11}
-                     @secref["Fraud"]
-                     "")
+                     @day{03/10}
+                      (list @secref["Fraud"] @hspace[3] @link["slides/10-fraud.pdf"]{(slide)})
+                     "Quiz 6, Practice Midterm 1")
                   (list ""
-                     @day{03/13}
+                     @day{03/12}
                      @secref["Midterm_1"]
-                     @seclink["Assignment 4"]{A4})
-                     
-             @; Week 8
+                     "")
+
+            @; Week 8
                (list "Week 8"
-                     @day{03/16-03/20}
+                     @day{03/16}
                      "Spring Break"
                      "")
+
+            @; Week 9
+               (list "Week 9"
+                     @day{03/24}
+                     (list @secref["Fraud"] @hspace[3] @link["slides/10-fraud.pdf"]{(slide)})
+                     "")
+                  (list ""
+                     @day{03/26}
+                    (list @secref["Hustle"] @hspace[3] @link["slides/11-hustle.pdf"]{(slide)})
+                     "")
+@;{                     
             @; Week 9
                (list "Week 9"
                      @day{03/25}
