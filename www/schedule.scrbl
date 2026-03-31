@@ -199,17 +199,18 @@
                      @day{03/26}
                     (list @secref["Hustle"] @hspace[3] @link["slides/11-hustle.pdf"]{(slide)})
                      "")
-@;{                     
-            @; Week 9
-               (list "Week 9"
-                     @day{03/25}
-                     @secref["Hustle"]
-                     "Quiz 6")
-                  (list ""
-                     @day{03/27}
-                     @secref["Hustle"]
-                     "")
+                     
             @; Week 10
+               (list "Week 10"
+                     @day{03/31}
+                     (list @secref["Hoax"] @hspace[3] @link["slides/12-hoax.pdf"]{(slide)})
+                     (list "Quiz 7" @seclink["Assignment 6"]{A6}))
+                  (list ""
+                     @day{04/02}
+                     (list @secref["Hoax"] @hspace[3] @link["slides/12-hoax.pdf"]{(slide)})
+                    "")
+@;{
+                  @; Week 10
                (list "Week 10"
                      @day{04/01}
                      @secref["Hoax"]
