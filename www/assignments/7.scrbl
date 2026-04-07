@@ -3,7 +3,7 @@
 	  "../notes/ev.rkt")
 
 @title[#:tag "Assignment 7" #:style 'unnumbered]{Assignment 7:
-Variable-arity and arity-overloaded functions}
+Variable-Arity and Arity-Overloaded Functions}
 
 @(require (for-label a86 (except-in racket ...)))
 
