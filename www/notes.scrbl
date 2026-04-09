@@ -11,7 +11,7 @@ suggestions for improving the material, @bold{please},
 
 @local-table-of-contents[#:style 'immediate-only]
 
-@;{
+
 @include-section{notes/1/what-is-a-compiler.scrbl}
 @include-section{notes/1/ocaml-to-racket.scrbl}
 @include-section{notes/a86.scrbl}
@@ -27,7 +27,6 @@ suggestions for improving the material, @bold{please},
 @;include-section{notes/grift.scrbl}
 @include-section{notes/hustle.scrbl}
 @include-section{notes/hoax.scrbl}
-
 @include-section{notes/iniquity.scrbl}
 @;include-section{notes/juvie.scrbl}
 @include-section{notes/jig.scrbl}
@@ -38,5 +37,3 @@ suggestions for improving the material, @bold{please},
 @;include-section{notes/neerdowell.scrbl}
 @;include-section{notes/outlaw.scrbl}
 @;include-section{notes/shakedown.scrbl}
-}
-@include-section{notes/mug.scrbl}
