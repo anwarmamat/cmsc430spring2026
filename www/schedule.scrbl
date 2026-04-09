@@ -209,16 +209,17 @@
                      @day{04/02}
                      (list @secref["Hoax"] @hspace[3] @link["slides/12-hoax.pdf"]{(slide)})
                     "")
-@;{
-                  @; Week 10
-               (list "Week 10"
-                     @day{04/01}
-                     @secref["Hoax"]
-                     "")
+
+                  @; Week 11
+               (list "Week 11"
+                     @day{04/07}
+                     (list @secref["Iniquity"] @hspace[3] @link["slides/13-iniquity.pdf"]{(slide)})
+                      "")
                   (list ""
-                     @day{04/03}
-                     @secref["Iniquity"]
+                     @day{04/09}
+                     @secref["Knock"]
                      "")
+   @;{
             @; Week 11
                (list "Week 11"
                      @day{04/08}
