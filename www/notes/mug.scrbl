@@ -20,231 +20,34 @@
 
 @(define this-lang "Mug")
 
-@title[#:tag this-lang]{@|this-lang|: symbols and interned string literals}
+@title[#:tag this-lang]{@|this-lang|: interned string literals and symbols}
 
 @src-code[this-lang]
 
 @table-of-contents[]
 
-@section[#:tag-prefix "mug"]{String Literals}
+@section[#:tag-prefix "mug"]{Interned String Literals}
 
-As it currently stands in our language, @bold{string literals} are
-dynamically allocated when they are evaluated.
+When we added string values in @seclink["Hoax"]{Hoax}, we also decided
+to put string @emph{literals} in statically allocated program memory
+instead of on the heap with the dynamically allocated dat at run-time.
+We can now use this foundation to further improve our compiler.
 
-This means, for example, that if we had a program like this:
+Consider the following program:
 
 @#reader scribble/comment-reader
 (racketblock
-(define (f) "fred")
-(cons (f) (cons (f) (cons (f) '())))
+(begin "Hello!"
+       "Hello!")
 )
 
-This will allocate three distinct copies of the string
-@racket["fred"], one for each call to @racket[f].  This is unfortunate
-since really just a single allocation of @racket["fred"] that is
-referenced three times could've worked just as well and allocated less
-memory.
-
-A common approach programming language implementations take is to take
-every string literal that appears in a program and all allocate it
-@bold{once} and replace occurrences of those literals with references
-to memory allocated for it.
-
-This means, for example, that multiple occurrences of the same string
-literal evaluate to the same pointer:
-
-@ex[
-(eq? "x" "x")
-]
-
-Note that this doesn't mean that every string of the same characters
-is represented by a unique pointer.  We can dynamically construct
-strings that will not be equal to a string literal of the same
-characters:
-
-@ex[
-(eq? "x" (string #\x))
-]
-
-Let's consider how strings were previously compiled.  Here's an assembly program
-that returns @racket["Hello!"]:
-
-@;{
-@ex[
-(require loot/compile)
-(seq (Label 'entry)
-     (Mov 'rbx 'rdi)
-     (compile-string "Hello!")
-     (Ret))
-]
-
-We can run it just to make sure:
-
-@ex[
-(bits->value
- (asm-interp
-  (seq (Global 'entry)
-       (Label 'entry)
-       (Mov 'rbx 'rdi)
-       (compile-string "Hello!")
-       (Ret))))
-]
-}
-
-Notice that this program dynamically allocates the string by executing
-instructions that write to memory pointed to by @racket['rbx] and
-incrementing @racket['rbx].
-
-But fundamentally, we shouldn't need to do anything dynamically if we
-know statically that the string being return is @racket["Hello!"].  We
-could @emph{statically} allocate the memory for the string at
-compile-time and return a pointer to this data.
-
-@section[#:tag-prefix "mug"]{Static Memory}
-
-How can we statically allocate memory?  The idea is to use memory in
-the program itself to store the data needed to represent the string
-literal.  It turns out that in an a86 program you can have a section
-for the program text and another section with binary data.  To switch
-between the program text and program data, we use the @racket[(Text)]
-and @racket[(Data)] directive.  Once in @racket[(Data)] mode we can
-write down data that will be placed in the program.
-
-For example, here is a data section:
-
-@ex[
-(seq (Data)
-     (Label 'hi)
-     (Dq 6)
-     (Dd (char->integer #\H))
-     (Dd (char->integer #\e))
-     (Dd (char->integer #\l))
-     (Dd (char->integer #\l))
-     (Dd (char->integer #\o))
-     (Dd (char->integer #\!)))
-
-]
-
-These psuedo-instructions will add to the data segment of our program
-32-bytes of data.  The first 8-bytes consist of the number 6.  The
-next 4-bytes consist of the number @racket[72], i.e. the codepoint for
-@racket[#\H].  The next 4-bytes consist of the codepoint for
-@racket[#\e] and so on.  The names of these psuedo-instructions
-designate how much memory is used: @racket[Dq] means 8-bytes
-(64-bits), while @racket[Dd] means 4-bytes (32-bits).
-
-The label @racket['hi] is given to name this data's location.  We've
-previously seen how to load the address of a label using the
-@racket[Lea] instruction in order to compute a place in the code to
-jump to.  Similarly, if we load the address of @racket['hi], we have a
-pointer to the data at that location in the program.
-
-So to write a similar program that returns @racket["Hello!"] but
-@emph{statically} allocates the memory for the string, we could do the
-following:
-
-@ex[
-(bits->value
- (asm-interp
-  (seq (Global 'entry)
-       (Label 'entry)
-       (Lea 'rax 'hi)
-       (Or 'rax type-str)
-       (Ret)
-       (Data)
-       (Label 'hi)
-       (Dq 6)
-       (Dd (char->integer #\H))
-       (Dd (char->integer #\e))
-       (Dd (char->integer #\l))
-       (Dd (char->integer #\l))
-       (Dd (char->integer #\o))
-       (Dd (char->integer #\!)))))
-]
-
-A couple things to note:
-@itemlist[
-
-@item{nothing is allocated in the heap memory set up by the run-time;
-indeed this program doesn't use the @racket['rbx] register at all.}
-
-@item{Executing this program takes fewer steps than the previous
-version; when the @racket['entry] label is called, it executes an
-@racket[Lea] and @racket[Or] instruction and returns.}
-
-]
-
-This is pretty big improvement over the previous approach since the
-number of instructions to execute were proportional to the size of the
-string being compiled.  Now we simply load the address of the static
-data in a small, constant number of instructions.
-
-In fact, we can do one better.  The @racket[Or] instruction is there
-in order to tag the pointer to @racket['hi] as a string.  There's
-really no reason to do this at run-time; we should be able to add the
-tag statically so that just a single load instruction suffices.  The
-goal is to add the tag to the address of @racket['hi] at compile time,
-but the location of the label is actually not fully known until link
-time.  Our assembler has a way of resolving this by allowing us to
-write @emph{expressions} involving labels and constants that will be
-computed at link time.
-
-Here is a version of the same program that avoids the @racket[Or]
-instruction, instead computing that type tagging at link time:
-
-
-@ex[
-(bits->value
- (asm-interp
-  (seq (Global 'entry)
-       (Label 'entry)
-       (Lea 'rax (|@| (+ 'hi type-str)))
-       (Ret)
-       (Data)
-       (Label 'hi)
-       (Dq 6)
-       (Dd (char->integer #\H))
-       (Dd (char->integer #\e))
-       (Dd (char->integer #\l))
-       (Dd (char->integer #\l))
-       (Dd (char->integer #\o))
-       (Dd (char->integer #\!)))))
-]
-
-
-So one idea is to use static data to represent string literals.  This
-reduces the run-time memory that is allocated and makes is more
-efficient to evaluate string literals.  We could replace the old
-@racket[compile-string] function with the following:
-
-@ex[
-(define (compile-string s)
-  (let ((l (gensym 'string)))
-    (seq (Data)
-	 (Label l)
-	 (Dq (string-length s))
-	 (map Dd (map char->integer (string->list s)))
-	 (Text)
-	 (Lea 'rax (|@| (+ l type-str))))))
-
-(compile-string "Hello!")
-
-(bits->value
- (asm-interp
-  (seq (Global 'entry)
-       (Label 'entry)
-       (compile-string "Hello!")
-       (Ret))))
-]
-
-Now, while this does allocate string literals statically, using memory
-within to the program to store the string, it doesn't alone solve the
-problem with string literals being represented uniquely.
-
-@section[#:tag-prefix "mug"]{Static Interning}
-
-We've seen static memory, but we still need to make sure every string
-literal is allocated just once.
+Our @racket[begin] form's two branches each evaluate to the string
+@racket["Hello!"], and because both occurrences of this string are
+literals, both of them will be allocated in static memory. However,
+@emph{both of them will be allocated}, even though we know that
+they are identical at compile-time. We can do better: we can allocate
+the string literal @racket["Hello!"] just once and use the same address
+to reference it in both places.
 
 Here is the basic idea:
 
@@ -253,27 +56,19 @@ Here is the basic idea:
 @item{Collect all of the string literals in the program.}
 
 @item{For each distinct string literal, compile it to static data as
-described above, labelling the data location.}
+described above, labeling the data location.}
 
 @item{For each string literal expression, compile it to a reference to
 the appropropiate label for that string.}
 
 ]
 
-For example, let's say we want to compile this program:
+We'd like our example above to compile to something like this:
 
 @#reader scribble/comment-reader
 (racketblock
-(begin "Hello!"
-       "Hello!")
-)
-
-We'd like it to compile to something like this:
-
-@#reader scribble/comment-reader
-(racketblock
-(seq (Mov 'rax (Add 'hi type-str))
-     (Mov 'rax (Add 'hi type-str))
+(seq (Mov 'rax (Mem 'hi type-str))
+     (Mov 'rax (Mem 'hi type-str))
      (Ret)
      (Data)
      (Label 'hi)
@@ -287,7 +82,7 @@ We'd like it to compile to something like this:
 )
 
 Notice how the two occurrences of @racket["Hello!"] turn into the
-instruction @racket[(Mov 'rax (Add 'hi type-str))].  The labelled
+instruction @racket[(Mov 'rax (Mem 'hi type-str))].  The labeled
 location @racket['hi] contains the data for the string and it is
 statically allocated just once.
 
@@ -303,11 +98,11 @@ generate a new label and add it to the association.
 
 This association would have to be added as a parameter to each of our
 @racket[compile-e] functions and string literals would consult the
-association to emit the @racket[(Mov 'rax (Add _label type-str))]
+association to emit the @racket[(Mov 'rax (Mem _label type-str))]
 instruction.
 
 We'd also take every label and string pair in the association and
-compile the string data to static data labelled with the associated
+compile the string data to static data labeled with the associated
 label.
 
 However, here's a fun ``trick'' we can employ to avoid having to
@@ -320,13 +115,13 @@ be pointer-equal to each other, so by converting a string to a symbol,
 we can take advantage of our implementation language's (Racket's)
 facility for interning to help us implement interning in our compiler.
 
-So here is our revised apporach will produce code like this for our
-example program:
+So here is our revised apporach, which will produce code like this for
+our example program:
 
 @#reader scribble/comment-reader
 (racketblock
-(seq (Mov 'rax (Add (symbol->label (string->symbol "Hello!")) type-str))
-     (Mov 'rax (Add (symbol->label (string->symbol "Hello!")) type-str))
+(seq (Mov 'rax (Mem (symbol->label (string->symbol "Hello!")) type-str))
+     (Mov 'rax (Mem (symbol->label (string->symbol "Hello!")) type-str))
      (Ret)
      (Data)
      (Label (symbol->label (string->symbol "Hello!")))
@@ -347,11 +142,11 @@ association needs to be maintained explicity.
 (racketblock
 ;; String -> Asm
 (define (compile-string s)
-  (seq (Lea 'rax (|@| (+ (symbol->label (string->symbol s)) type-str)))))
+  (seq (Lea 'rax (Mem (symbol->label (string->symbol s)) type-str))))
 )
 
 @(ev '(define (compile-string s)
-	(seq (Lea 'rax (|@| (+ (symbol->label (string->symbol s)) type-str))))))
+	(seq (Lea 'rax (Mem (symbol->label (string->symbol s)) type-str)))))
 
 So here's how an occurrence of @racket["Hello!"] is compiled:
 
@@ -575,7 +370,7 @@ The key additions are a function for compiling symbol occurrences:
 (racketblock
 ;; Symbol -> Asm
 (define (compile-symbol s)
-  (seq (Lea 'rax (|@| (+ (symbol->data-label s) type-symb)))))
+  (seq (Lea 'rax (Mem (symbol->data-label s) type-symb))))
 )
 
 Which works as follows:
@@ -920,7 +715,7 @@ doing exactly what the interpreter is doing above:
              cm))]
     [(PSymb s)
      (let ((fail (gensym)))
-       (list (seq (Lea r9 (@ (+ (symbol->data-label s) type-symb)))
+       (list (seq (Lea r9 (Mem (symbol->data-label s) type-symb))
                   (Cmp rax r9)
                   (Jne fail))
              (seq (Label fail)
