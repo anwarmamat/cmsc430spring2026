@@ -64,7 +64,8 @@
               "Friday, March 6, 11:59PM"
               "Tuesday, March 31, 11:59PM"
               "Tuesday, April 7, 11:59PM"
-              "Tuesday, April 14, 11:59PM")
+              "Tuesday, April 14, 11:59PM"
+              "Tuesday, April 28, 11:59PM")
             (sub1 i)))
 
 (define office-hours
