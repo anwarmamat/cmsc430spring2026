@@ -76,11 +76,11 @@
           (item "10:00am–1:00pm — Kalyan")))
    (item "Tuesday"
          (itemlist
-          (item "8:00am–11:00am — Yi")
           (item "11:00am–12:30pm — Sam")
           (item "2:00pm–4:30pm — Pierce, Justine")))
    (item "Wednesday"
-         (itemlist))
+         (itemlist
+          (item "2:00pm-5:00pm — Yi")))
    (item "Thursday"
          (itemlist
           (item "11:00am–12:30pm — Sam")
