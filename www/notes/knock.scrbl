@@ -636,7 +636,7 @@ Here is the complete code for @racket[compile-match-clause]:
   (let ((next (gensym)))
     (match (compile-pattern p '() next)
       [(list i f cm)
-       (seq (Mov rax (Offset rsp 0)) ; restore value being matched
+       (seq (Mov rax (Mem rsp 0)) ; restore value being matched
             i
             (compile-e e (append cm c) t?)
             (Add rsp (* 8 (length cm)))

@@ -254,7 +254,7 @@ which would emit the following code:
        (Je done)
        (assert-cons rax)         ; otherwise, should be a cons
        (Xor rax type-cons)
-       (Mov rax (Offset rax 0))  ; move cdr into rax
+       (Mov rax (Mem rax 0))  ; move cdr into rax
        (Add r8 (value->bits 1))    ; increment count
        (Jmp loop)                ; loop
        (Label done)
@@ -291,7 +291,7 @@ computing the length of the list in @racket['rax]:
                 (Je done)
                 (assert-cons rax)         ; otherwise, should be a cons
                 (Xor rax type-cons)
-                (Mov rax (Offset rax 0))  ; move cdr into rax
+                (Mov rax (Mem rax 0))  ; move cdr into rax
                 (Add r8 (value->bits 1))    ; increment count
                 (Jmp loop)                ; loop
                 (Label done)

@@ -565,7 +565,7 @@ compiled as:
      (Mov 'rax (values->bits 2))
      (Push 'rax)
      ; (add1 x)
-     (Mov 'rax (Offset 'rsp 8))
+     (Mov 'rax (Mem 'rsp 8))
      (Add 'rax (value->bits 1))))
 
 When the @racket[let] expression is complete, the bindings for
@@ -580,7 +580,7 @@ and @racket[y] are irrelevant.
      (Push 'rax) ; bind x to 7
      (Mov 'rax (values->bits 2))
      (Push 'rax) ; bind y to 2
-     (Mov 'rax (Offset 'rsp 8)) ; ref x
+     (Mov 'rax (Mem 'rsp 8)) ; ref x
      (Add 'rax (value->bits 1)) ; add1
      (Add 'rsp 8)  ; pop y
      (Add 'rsp 8)) ; pop x
@@ -659,7 +659,7 @@ could emit working code.  For example:
 (define (compile-+-var x0 e1)
   (let ((i (lookup x0 c)))
     (seq (compile-e e1 c)
-         (Add 'rax (Offset 'rsp i)))))
+         (Add 'rax (Mem 'rsp i)))))
 )
 
 The latter suggests a general solution could be to transform binary
@@ -681,7 +681,7 @@ above.  It is @emph{always} 0 because the transformation puts the
 @racket[let] immediately around the occurrence of @racket[_x].  So if
 we're compiling @racket[(+ _e0 _e1)] in environment @racket[_c] using
 this approach, we know the value of @racket[_e0] will live at
-@racket[(Offset 'rsp 0)].  There's no need for a
+@racket[(Mem 'rsp 0)].  There's no need for a
 @racket[let] binding or a fresh variable name.  And this observation
 enables us to write a general purpose compiler for binary primitives
 that doesn't require any program transformation: we simply push the

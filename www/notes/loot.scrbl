@@ -786,7 +786,7 @@ We can now write the function that compiles a labelled
       [(Lam f xs e)
        (let ((env  (append (reverse fvs) (reverse xs) (list #f))))
          (seq (Label (symbol->label f))              
-              (Mov rax (Offset rsp (* 8 (length xs))))
+              (Mov rax (Mem rsp (* 8 (length xs))))
               (Xor rax type-proc)
               (copy-env-to-stack fvs 8)
               (compile-e e env #t)
@@ -825,7 +825,7 @@ achieved by this helper function:
   (match fvs
     ['() (seq)]
     [(cons _ fvs)
-     (seq (Mov r9 (Offset rax off))
+     (seq (Mov r9 (Mem rax off))
           (Push r9)
           (copy-env-to-stack fvs (+ 8 off)))]))
 )
@@ -923,7 +923,7 @@ Here's the function for emitting closure construction code:
 (define (compile-lam f xs e c) 
   (let ((fvs (fv (Lam f xs e))))
     (seq (Lea rax (symbol->label f))
-         (Mov (Offset rbx 0) rax)
+         (Mov (Mem rbx 0) rax)
          (free-vars-to-heap fvs c 8)
          (Mov rax rbx) ; return value
          (Or rax type-proc)         
@@ -945,8 +945,8 @@ it to the heap.
   (match fvs
     ['() (seq)]
     [(cons x fvs)
-     (seq (Mov r8 (Offset rsp (lookup x c)))
-          (Mov (Offset rbx off) r8)
+     (seq (Mov r8 (Mem rsp (lookup x c)))
+          (Mov (Mem rbx off) r8)
           (free-vars-to-heap fvs c (+ off 8)))]))
 )
 
@@ -977,10 +977,10 @@ Here is the code for the non-tail-calls:
     (seq (Lea rax r)
          (Push rax)
          (compile-es (cons e es) (cons #f c))         
-         (Mov rax (Offset rsp i))
+         (Mov rax (Mem rsp i))
          (assert-proc rax)
          (Xor rax type-proc)
-         (Mov rax (Offset rax 0)) ; fetch the code label
+         (Mov rax (Mem rax 0)) ; fetch the code label
          (Jmp rax)
          (Label r))))
 )
@@ -1003,10 +1003,10 @@ return frame and to pop the local environment before jumping:
   (seq (compile-es (cons e es) c)
        (move-args (add1 (length es)) (length c))
        (Add rsp (* 8 (length c)))
-       (Mov rax (Offset rsp (* 8 (length es))))
+       (Mov rax (Mem rsp (* 8 (length es))))
        (assert-proc rax)
        (Xor rax type-proc)
-       (Mov rax (Offset rax 0))
+       (Mov rax (Mem rax 0))
        (Jmp rax)))
 )
 
@@ -1192,7 +1192,7 @@ uninitialized, each of the closures and pushes them on the stack:
     [(cons (Defn f xs e) ds)
      (let ((fvs (fv (Lam f xs e))))
        (seq (Lea rax (symbol->label f))
-            (Mov (Offset rbx off) rax)         
+            (Mov (Mem rbx off) rax)         
             (Mov rax rbx)
             (Add rax off)
             (Or rax type-proc)

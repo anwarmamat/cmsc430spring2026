@@ -574,7 +574,7 @@ should we add string mutation operations.
 (define char-array-copy
   (seq (Mov rdi rbx)            ; dst
        (Mov rsi rax)            ; src
-       (Mov rdx (Offset rax 0)) ; len
+       (Mov rdx (Mem rax 0)) ; len
        (Add rdx 1)              ; #words = 1 + (len+1)/2
        (Sar rdx 1)
        (Add rdx 1)

@@ -318,7 +318,7 @@ and @racket[struct-ref]:
             (Cmp r9 type-struct)     ; compare tag to the structure tag
             (Jne f)                  ; not a structure
             (Xor rax type-struct)    ; untag the structure pointer
-            (Mov rax (Offset rax 0)) ; get the structure type symbol
+            (Mov rax (Mem rax 0)) ; get the structure type symbol
             (Cmp r8 rax)             ; compare it to the type argument
             (Mov rax (value->bits #t))
             (Jne f)                  ; a structure, but not this kind
@@ -335,14 +335,14 @@ and @racket[struct-ref]:
 	  ; (assert-integer r8)
           (assert-struct rax)
           (Xor rax type-struct)
-          (Mov r10 (Offset rax 0))  ; get the structure type symbol
+          (Mov r10 (Mem rax 0))  ; get the structure type symbol
           (Cmp r11 r10)             ; compare it to the type argument
           (Jne 'raise_error_align)  ; a structure, but not this kind
           (Sar r8 int-shift) ; convert to raw int
           (Add r8 1)         ; +1 to skip symbol element
           (Sal r8 3)         ; *4 for byte offset
           (Add rax r8)
-          (Mov rax (Offset rax 0)))]))
+          (Mov rax (Mem rax 0)))]))
 }
 
 Handling @racket[make-struct] is slightly more complicated.  The
@@ -386,8 +386,8 @@ The @racket[compile-make-struct] function is defined as follows:
 ;; Pop elements off stack, writing them to heap
 (define (compile-make-struct/a n i)
   (if (= n i)
-      (seq (Mov (Offset rbx (* 8 (- n i))) rax))
-      (seq (Mov (Offset rbx (* 8 (- n i))) rax)
+      (seq (Mov (Mem rbx (* 8 (- n i))) rax))
+      (seq (Mov (Mem rbx (* 8 (- n i))) rax)
            (Pop rax)
            (compile-make-struct/a n (add1 i)))))
 }

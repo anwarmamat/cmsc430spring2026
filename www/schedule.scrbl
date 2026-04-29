@@ -214,39 +214,42 @@
                (list "Week 11"
                      @day{04/07}
                      (list @secref["Iniquity"] @hspace[3] @link["slides/13-iniquity.pdf"]{(slide)})
-                      "")
+                      @seclink["Assignment 7"]{A7})
                   (list ""
                      @day{04/09}
                      @secref["Knock"]
                      "")
-   @;{
-            @; Week 11
-               (list "Week 11"
-                     @day{04/08}
-                     @itemlist[@item{@secref["Knock"] "Mamat"} @item{@secref["Jig"] "Surbatovich"}]
-                     @seclink["Assignment 5"]{A5})
-                  (list ""
-                     @day{04/10}
-                     @secref["Knock"]
-                     "")
+   
             @; Week 12
                (list "Week 12"
-                     @day{04/15}
-                     @itemlist[@item{@secref["Jig"] "Mamat"} @item{@secref["Loot"] "Surbatovich"}]
-                     "")
+                     @day{04/14}
+                     @secref["Knock"]
+                     "Quiz 8")
                   (list ""
-                     @day{04/17}
+                     @day{04/16}
                       @secref["Midterm_2"]
                      "")
+   
             @; Week 13
                (list "Week 13"
-                     @day{04/22}
-                     @itemlist[@item{@secref["Jig"] "Mamat"} @item{@secref["Loot"] "Surbatovich"}]
+                     @day{04/21}
+                     (list @secref["Jig"] @hspace[3] @link["slides/14-jig.pdf"]{(slide)})
+                     @seclink["Assignment 8"]{A8})
+                  (list ""
+                     @day{04/23}
+                      (list @secref["Loot"] @hspace[3] @link["slides/15-loot.pdf"]{(slide)})
+                     "")
+   
+               @; Week 14
+               (list "Week 14"
+                     @day{04/28}
+                     (list @secref["Loot"] @hspace[3] @link["slides/15-loot.pdf"]{(slide)})
                      "")
                   (list ""
-                     @day{04/24}
-                     @secref["Loot"]
+                     @day{04/30}
+                     @secref["Mug"] 
                      "")
+   @;{
              @; Week 14
                (list "Week 14"
                      @day{04/15}

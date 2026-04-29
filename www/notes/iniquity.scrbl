@@ -240,8 +240,8 @@ This @emph{almost} works, but has a crucial flaw.  The problem is that
 @racket[Call] is an instruction that pushes on the stack.  It pushes
 the return address, i.e. the location of the instruction the function
 should return to when it's done, which will be located in
-@racket[(Offset 'rsp 0)] when control jumps to @racket[(Label 'dbl)].
-That means that the argument will be in @racket[(Offset 'rsp 8)].
+@racket[(Mem 'rsp 0)] when control jumps to @racket[(Label 'dbl)].
+That means that the argument will be in @racket[(Mem 'rsp 8)].
 
 So we can touch-up the example as follows and it will work:
 
@@ -297,7 +297,7 @@ work well with the @racket[Call] instruction pushing the return
 pointer on as the top frame of the stack before jumping to the
 function body.  In the @racket[let]-expression, @racket[x] occurs at
 lexical address @racket[0], but because of the return address being on
-the stack, the value of @racket[x] is really at @racket[(Offset 'rsp 8)].
+the stack, the value of @racket[x] is really at @racket[(Mem 'rsp 8)].
 
 We can fix this, but let's recall that @racket[Call] can be expressed
 in terms of more primitive instructions: all a call is doing is
@@ -377,7 +377,7 @@ now push the address on the stack @emph{before} the arguments:
        (Ret)))
 
 This way the called function can fetch variable bindings by their
-lexical address, i.e. @racket[x] will be at @racket[(Offset rsp 0)].
+lexical address, i.e. @racket[x] will be at @racket[(Mem rsp 0)].
 
 The problem now is that the called function doesn't have the return
 address at the top off the stack when it does its @racket[Ret], rather
@@ -388,7 +388,7 @@ will be popped by the caller as soon as the function returns, so
 here's an idea: let's have the called function pop the arguments off.
 (Note that this is just like how @racket[let] works: it pops its
 bindings off after the body is done.)  After the arguments are popped,
-where is the return address on the stack?  @racket[(Offset 'rsp 0)].
+where is the return address on the stack?  @racket[(Mem 'rsp 0)].
 So after the arguments are popped, @racket[(Ret)] works as expected.
 
 Here's a complete version where the caller no longer pops the
